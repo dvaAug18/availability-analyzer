@@ -1,8 +1,9 @@
-package ru.dva.vl;
+package ru.dva.vl.parser;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import ru.dva.vl.dto.AnalyzerParams;
 import ru.dva.vl.exception.ParamFormatException;
 import ru.dva.vl.exception.ParamRequiredException;
 

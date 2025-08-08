@@ -1,7 +1,8 @@
-package ru.dva.vl;
+package ru.dva.vl.parser;
 
 import ru.dva.vl.exception.ParamFormatException;
 import ru.dva.vl.exception.ParamRequiredException;
+import ru.dva.vl.dto.AnalyzerParams;
 
 import java.time.Duration;
 import java.time.temporal.ChronoUnit;
@@ -15,24 +16,24 @@ public class ParamsParser {
         long time;
         List<String> argsList = Arrays.asList(args);
 
-        String uValue = getValueByKey("u", argsList);
+        String uValue = getRequiredValueByKey("u", argsList);
         try {
             availability = Double.parseDouble(uValue);
         } catch (Exception e) {
             throw new ParamFormatException("u", e);
         }
 
-        String tValue = getValueByKey("t", argsList);
+        String tValue = getRequiredValueByKey("t", argsList);
         try {
             time = Long.parseLong(tValue);
         } catch (Exception e) {
             throw new ParamFormatException("t", e);
         }
 
-        return new AnalyzerParams(availability, Duration.of(time, ChronoUnit.MILLIS));
+        return new AnalyzerParams(availability, Duration.of(time, ChronoUnit.MILLIS), argsList.contains("d"));
     }
 
-    private static String getValueByKey(String key, List<String> argsList) {
+    private static String getRequiredValueByKey(String key, List<String> argsList) {
         int keyIndex = argsList.indexOf(key);
         if (keyIndex == -1) {
             throw new ParamRequiredException(key);
