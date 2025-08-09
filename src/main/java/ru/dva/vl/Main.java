@@ -14,17 +14,11 @@ public class Main {
     public static void main(String[] args) {
         AnalyzerParams params = ParamsParser.parse(args);
         Analyzer analyzer = new Analyzer(params, new FastLogRowParser());
-        try (BufferedReader br = new BufferedReader(new InputStreamReader(System.in, StandardCharsets.UTF_8))) {
-            String line;
-            long t = System.currentTimeMillis();
-            while ((line = br.readLine()) != null) {
-                analyzer.process(line);
-            }
-            if (params.debug()) {
-                System.out.printf("Total time: %s ms%n", System.currentTimeMillis() - t);
-            }
+        try (BufferedReader reader = new BufferedReader(new InputStreamReader(System.in, StandardCharsets.UTF_8))) {
+            analyzer.process(reader);
         } catch (IOException e) {
             throw new RuntimeException("Issue reading from input stream", e);
         }
     }
+
 }

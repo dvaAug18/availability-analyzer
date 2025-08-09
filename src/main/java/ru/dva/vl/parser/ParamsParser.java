@@ -13,24 +13,24 @@ public class ParamsParser {
 
     public static AnalyzerParams parse(String[] args) {
         double availability;
-        long time;
+        double timeout;
         List<String> argsList = Arrays.asList(args);
 
-        String uValue = getRequiredValueByKey("u", argsList);
+        String uValue = getRequiredValueByKey("-u", argsList);
         try {
             availability = Double.parseDouble(uValue);
         } catch (Exception e) {
-            throw new ParamFormatException("u", e);
+            throw new ParamFormatException("-u", e);
         }
 
-        String tValue = getRequiredValueByKey("t", argsList);
+        String tValue = getRequiredValueByKey("-t", argsList);
         try {
-            time = Long.parseLong(tValue);
+            timeout = Double.parseDouble(tValue);
         } catch (Exception e) {
-            throw new ParamFormatException("t", e);
+            throw new ParamFormatException("-t", e);
         }
 
-        return new AnalyzerParams(availability, Duration.of(time, ChronoUnit.MILLIS), argsList.contains("d"));
+        return new AnalyzerParams(availability, timeout, argsList.contains("-d"));
     }
 
     private static String getRequiredValueByKey(String key, List<String> argsList) {
