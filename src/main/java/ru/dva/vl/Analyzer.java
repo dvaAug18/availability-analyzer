@@ -50,6 +50,10 @@ public class Analyzer {
                 }
             }
         }
+        if (window.begin != null && window.calc() < params.availability()) {
+            unavailable.merge(window);
+        }
+        unavailable.printIfInit();
         if (params.debug()) {
             System.out.printf("Total time: %s ms%n", System.currentTimeMillis() - t);
         }
